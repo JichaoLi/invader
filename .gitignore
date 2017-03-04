@@ -42,3 +42,11 @@ atlassian-ide-plugin.xml
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
 crashlytics.properties
+/ExchangeClient.class
+
+.project
+.classpath
+/BaseFunctions.class
+/Status.class
+/Point.class
+/ScoreEntry.class
