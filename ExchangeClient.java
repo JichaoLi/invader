@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,35 +25,27 @@ public class ExchangeClient {
      */
     public static void main(String[] args) throws IOException {
 
-//        if (args.length < 4) {
-//            //host : codebb.cloudapp.net , port : 17429, user : WaterStreet, password : 123456
-//            System.out.println("Usage: \nclientTask <host> <port> <user> <password>");
-//
-//        }
-//        Socket socket = new Socket(args[0], Integer.parseInt(args[1]));
-//        PrintWriter pout = new PrintWriter(socket.getOutputStream());
-//        BufferedReader bin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//        pout.println(args[2] + " " + args[3]);
-
         //auto login
         Socket socket = new Socket("codebb.cloudapp.net", 17429);
         PrintWriter pout = new PrintWriter(socket.getOutputStream());
         BufferedReader bin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         pout.println("WaterStreet 123456");
+        pout.flush();
 
-        int totalTime = 20 * 3;
+        int totalTime = 20 * 60;
         int elapsedTime = 0;
         int seenMine = 0;
         int visitedMine = 0;
-
-
-
-        pout.println("ACCELERATE 0 1");
-        pout.flush();
-        String line;
-        while ((line = bin.readLine()) != null) {
-            System.out.println(line);
+        ArrayList<String> actions;
+        while (elapsedTime < totalTime) {
+            actions = Action.decideAction(elapsedTime, totalTime, seenMine, visitedMine);
+            String scanResult = Action.executeAction(actions, pout, bin);
+            if (scanResult != null) {}
+            elapsedTime++;
         }
+
+
+
     }
 
 }
