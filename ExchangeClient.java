@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+//package invader;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,25 +23,36 @@ public class ExchangeClient {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-        if (args.length < 5) {
-            System.out.println("Usage: \nclientTask <host> <port> <user> <password> <command...>");
 
-        }
-        Socket socket = new Socket(args[0], Integer.parseInt(args[1]));
+//        if (args.length < 4) {
+//            //host : codebb.cloudapp.net , port : 17429, user : WaterStreet, password : 123456
+//            System.out.println("Usage: \nclientTask <host> <port> <user> <password>");
+//
+//        }
+//        Socket socket = new Socket(args[0], Integer.parseInt(args[1]));
+//        PrintWriter pout = new PrintWriter(socket.getOutputStream());
+//        BufferedReader bin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//        pout.println(args[2] + " " + args[3]);
+
+        //auto login
+        Socket socket = new Socket("codebb.cloudapp.net", 17429);
         PrintWriter pout = new PrintWriter(socket.getOutputStream());
         BufferedReader bin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        pout.println(args[2] + " " + args[3]);
-        for (int i = 4; i < args.length; i++) {
-            pout.println(args[i]);
-        }
-        pout.println("CLOSE_CONNECTION");
+        pout.println("WaterStreet 123456");
+
+        int totalTime = 20 * 3;
+        int elapsedTime = 0;
+        int seenMine = 0;
+        int visitedMine = 0;
+
+
+
+        pout.println("ACCELERATE 0 1");
         pout.flush();
         String line;
         while ((line = bin.readLine()) != null) {
             System.out.println(line);
         }
-        pout.close();
-        bin.close();
     }
 
 }
