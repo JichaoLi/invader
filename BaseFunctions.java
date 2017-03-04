@@ -26,7 +26,11 @@ public class BaseFunctions {
 	public static Status parseStatus(String status) {
 		Status s = new Status();
 		Scanner scanner = new Scanner(status);
-		scanner.next("STATUS_OUT");
+		try {
+			scanner.next("STATUS_OUT");
+		} catch (Exception e) {
+			return null;
+		}
 		s.x = scanner.nextDouble();
 		s.y = scanner.nextDouble();
 		s.dx = scanner.nextDouble();
