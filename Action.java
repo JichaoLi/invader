@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -26,14 +27,13 @@ public class Action {
     }
 
 
-    public static String executeAction(ArrayList<String> action, PrintWriter pout, BufferedReader bin) throws IOException{
+    public static String executeAction(ArrayList<String> action, DataOutputStream outToServer, BufferedReader inFromServer) throws IOException{
 
         String scanResult = null;
         for (int i = 0; i < action.size(); i++) {
-            pout.println(action.get(i));
-            pout.flush();
+            outToServer.writeBytes(action.get(i) + '\n');
             String result;
-            if ((result = bin.readLine()) != null) {
+            if ((result = inFromServer.readLine()) != null) {
                 System.out.println(result);
                 if (BaseFunctions.parseStatus(result) != null) {
                     scanResult = result;
