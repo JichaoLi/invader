@@ -1,5 +1,6 @@
 
 public class Conf {
+	public final static String myName = "WaterStreet";
 	public double mapWidth;
 	public double mapHeight;
 	public double captureRadius;

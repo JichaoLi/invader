@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class BaseFunctions {
@@ -37,9 +38,15 @@ public class BaseFunctions {
 		s.dy = scanner.nextDouble();
 		scanner.next("MINES");
 		s.mines = new ArrayList<>();
+		s.capturedByOthers = new HashSet<>();
 		int ms = scanner.nextInt();
 		for (int i = 0; i < ms; i++) {
-			s.mines.add(new Point(scanner.nextDouble(), scanner.nextDouble()));
+			String owner = scanner.next("[^\\s-]+");
+			Point point = new Point(scanner.nextDouble(), scanner.nextDouble());
+			if (!owner.equals(Conf.myName)) {
+				s.capturedByOthers.add(point);
+			}
+			s.mines.add(point);
 			System.out.println(s.mines.size());
 		}
 		scanner.next("PLAYERS");
