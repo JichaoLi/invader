@@ -25,10 +25,10 @@ public class Action {
 
         }
         ArrayList<String> testStrings = new ArrayList<>();
-        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 2500,2500));
-        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 7500,2500));
-        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 7500,7500));
-        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 2500,7500));
+        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 50,50));
+//        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 7500,2500));
+//        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 7500,7500));
+//        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 2500,7500));
 
         return testStrings;
     }

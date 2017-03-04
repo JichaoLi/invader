@@ -4,8 +4,10 @@ import java.util.Scanner;
 
 public class BaseFunctions {
 	public static String moveToPoint(double x, double y, double dx, double dy, double a, double b) {
-		double ax = (a - x) - dx;
-		double ay = (b - y) - dy;
+		double r1 = Math.sqrt((a-x) * (a-x) + (b-y) * (b-y));
+		double r2 = Math.sqrt(dx*dx + dy*dy);
+		double ax = (a - x)/r1 - dx/r2;
+		double ay = (b - y)/r1 - dy/r2;
 		return accelerate(Math.atan2(ay, ax) + Math.PI); // convert to 0 to 2pi
 	}
 
@@ -41,7 +43,7 @@ public class BaseFunctions {
 		s.capturedByOthers = new HashSet<>();
 		int ms = scanner.nextInt();
 		for (int i = 0; i < ms; i++) {
-			String owner = scanner.next("[^\\s-]+");
+			String owner = scanner.next("[^\\s]+");
 			Point point = new Point(scanner.nextDouble(), scanner.nextDouble());
 			if (!owner.equals(Conf.myName)) {
 				s.capturedByOthers.add(point);
@@ -55,6 +57,8 @@ public class BaseFunctions {
 		for (int i = 0; i < ps; i++) {
 			double x = scanner.nextDouble();
 			double y = scanner.nextDouble();
+			scanner.nextDouble();
+			scanner.nextDouble();
 			s.players.add(new Point(x, y));
 		}
 		scanner.next("BOMBS");
@@ -67,7 +71,7 @@ public class BaseFunctions {
 	}
 
 	public static String accelerate(Double rad) {
-		return "ACCELERATE" + rad.toString() + " 1";
+		return "ACCELERATE " + rad.toString() + " 1";
 	}
 
 	public static String bomb(Double x, Double y) {
@@ -89,7 +93,7 @@ public class BaseFunctions {
 		while (true) {
 			ScoreEntry scoreEntry = new ScoreEntry();
 			try {
-				scoreEntry.player = scanner.next("[^\\s-]+");
+				scoreEntry.player = scanner.next("[^\\s]+");
 			} catch (Exception e) {
 				break;
 			}
