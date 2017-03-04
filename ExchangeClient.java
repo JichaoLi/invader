@@ -37,11 +37,11 @@ public class ExchangeClient {
         int visitedMine = 0;
         ArrayList<String> actions;
         while (elapsedTime < totalTime) {
-            String status = "STATUS";
-            outToServer.writeBytes(status + '\n');
+            outToServer.writeBytes("STATUS" + '\n');
             String statusResult = inFromServer.readLine();
             System.out.println(statusResult);
-            actions = Action.decideAction(elapsedTime, totalTime, seenMine, visitedMine);
+            Status status = BaseFunctions.parseStatus(statusResult);
+            actions = Action.decideAction(elapsedTime, totalTime, seenMine, visitedMine, status);
             String scanResult = Action.executeAction(actions, outToServer, inFromServer);
             if (scanResult != null) {}
             elapsedTime++;
