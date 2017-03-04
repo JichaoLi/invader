@@ -53,3 +53,6 @@ crashlytics.properties
 /Action.class
 /Conf.class
 /Exploit.class
+/Explore.class
+/MapTracker.class
+/Tuple.class

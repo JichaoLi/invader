@@ -8,7 +8,7 @@ public class BaseFunctions {
 		return accelerate(Math.atan2(ay, ax) + Math.PI); // convert to 0 to 2pi
 	}
 
-	public static Point getNearestNeighbour(ArrayList<Point> unvisited, double x, double y, double dx, double dy) {
+	public static Point getNearestNeighbour(Iterable<Point> unvisited, double x, double y, double dx, double dy) {
 		double distance = Double.MAX_VALUE;
 		Point p = null;
 		for (Point point : unvisited) {
