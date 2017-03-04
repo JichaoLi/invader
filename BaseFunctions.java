@@ -4,11 +4,15 @@ import java.util.Scanner;
 
 public class BaseFunctions {
 	public static String moveToPoint(double x, double y, double dx, double dy, double a, double b) {
-		double r1 = Math.sqrt((a-x) * (a-x) + (b-y) * (b-y));
-		double r2 = Math.sqrt(dx*dx + dy*dy);
-		double ax = (a - x)/r1 - dx/r2;
-		double ay = (b - y)/r1 - dy/r2;
-		return accelerate(Math.atan2(ay, ax) + Math.PI); // convert to 0 to 2pi
+		double r1 = Math.sqrt((a - x) * (a - x) + (b - y) * (b - y));
+		double r2 = Math.sqrt(dx * dx + dy * dy);
+		double ax = (a - x) / r1 - dx / r2;
+		double ay = (b - y) / r1 - dy / r2;
+		double theta = Math.atan2(ay, ax);
+		return accelerate(theta >= 0 ? theta : 2 * Math.PI + theta); // convert
+																		// to 0
+																		// to
+																		// 2pi
 	}
 
 	public static Point getNearestNeighbour(Iterable<Point> unvisited, double x, double y, double dx, double dy) {
