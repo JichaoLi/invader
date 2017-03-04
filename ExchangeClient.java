@@ -6,10 +6,7 @@
 
 //package invader;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -27,10 +24,12 @@ public class ExchangeClient {
 
         //auto login
         Socket socket = new Socket("codebb.cloudapp.net", 17429);
-        PrintWriter pout = new PrintWriter(socket.getOutputStream());
-        BufferedReader bin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        pout.println("WaterStreet 123456");
-        pout.flush();
+        DataOutputStream outToServer =
+                new DataOutputStream(socket.getOutputStream());
+        BufferedReader inFromServer =
+                new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        String sentence = "WaterStreet 123456";
+        outToServer.writeBytes(sentence + '\n');
 
         int totalTime = 20 * 60;
         int elapsedTime = 0;
@@ -38,13 +37,15 @@ public class ExchangeClient {
         int visitedMine = 0;
         ArrayList<String> actions;
         while (elapsedTime < totalTime) {
-            actions = Action.decideAction(elapsedTime, totalTime, seenMine, visitedMine);
-            String scanResult = Action.executeAction(actions, pout, bin);
+            outToServer.writeBytes("STATUS" + '\n');
+            String statusResult = inFromServer.readLine();
+            System.out.println(statusResult);
+            Status status = BaseFunctions.parseStatus(statusResult);
+            actions = Action.decideAction(elapsedTime, totalTime, seenMine, visitedMine, status);
+            String scanResult = Action.executeAction(actions, outToServer, inFromServer);
             if (scanResult != null) {}
             elapsedTime++;
         }
-
-
 
     }
 

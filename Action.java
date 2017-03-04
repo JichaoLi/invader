@@ -1,11 +1,13 @@
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Action {
 
-    public static ArrayList<String> decideAction(int elapsedTime, int totalTime, int seenMine, int visitedMine) {
+    public static ArrayList<String> decideAction(int elapsedTime, int totalTime, int seenMine, int visitedMine, Status status) {
         if (seenMine < 10) {
             /*
                 if we have seen less than 10, we do ..
@@ -22,18 +24,23 @@ public class Action {
              */
 
         }
-        return null;
+        ArrayList<String> testStrings = new ArrayList<>();
+        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 2500,2500));
+        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 7500,2500));
+        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 7500,7500));
+        testStrings.add(BaseFunctions.moveToPoint(status.x,status.y,status.dx,status.dy, 2500,7500));
+
+        return testStrings;
     }
 
 
-    public static String executeAction(ArrayList<String> action, PrintWriter pout, BufferedReader bin) throws IOException{
+    public static String executeAction(ArrayList<String> action, DataOutputStream outToServer, BufferedReader inFromServer) throws IOException{
 
         String scanResult = null;
         for (int i = 0; i < action.size(); i++) {
-            pout.println(action.get(i));
-            pout.flush();
+            outToServer.writeBytes(action.get(i) + '\n');
             String result;
-            if ((result = bin.readLine()) != null) {
+            if ((result = inFromServer.readLine()) != null) {
                 System.out.println(result);
                 if (BaseFunctions.parseStatus(result) != null) {
                     scanResult = result;
