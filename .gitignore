@@ -50,3 +50,5 @@ crashlytics.properties
 /Status.class
 /Point.class
 /ScoreEntry.class
+/Action.class
+/Conf.class
