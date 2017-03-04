@@ -36,19 +36,25 @@ public class BaseFunctions {
 		s.dx = scanner.nextDouble();
 		s.dy = scanner.nextDouble();
 		scanner.next("MINES");
-		s.mines = new ArrayList<>(scanner.nextInt());
-		for (int i = 0; i < s.mines.size(); i++) {
+		s.mines = new ArrayList<>();
+		int ms = scanner.nextInt();
+		for (int i = 0; i < ms; i++) {
 			scanner.next("--");
 			s.mines.add(new Point(scanner.nextDouble(), scanner.nextDouble()));
+			System.out.println(s.mines.size());
 		}
 		scanner.next("PLAYERS");
-		s.players = new ArrayList<>(scanner.nextInt());
-		for (int i = 0; i < s.players.size(); i++) {
-			s.players.add(new Point(scanner.nextDouble(), scanner.nextDouble()));
+		s.players = new ArrayList<>();
+		int ps = scanner.nextInt();
+		for (int i = 0; i < ps; i++) {
+			double x = scanner.nextDouble();
+			double y = scanner.nextDouble();
+			s.players.add(new Point(x, y));
 		}
 		scanner.next("BOMBS");
-		s.bombs = new ArrayList<>(scanner.nextInt());
-		for (int i = 0; i < s.bombs.size(); i++) {
+		s.bombs = new ArrayList<>();
+		int bs = scanner.nextInt();
+		for (int i = 0; i < bs; i++) {
 			s.bombs.add(new Point(scanner.nextDouble(), scanner.nextDouble()));
 		}
 		return s;
@@ -122,8 +128,7 @@ public class BaseFunctions {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		String string = scanner.nextLine();
-		Conf conf = parseConf(string);
-		System.out.println(conf.scanDelay);
+		Status status = parseStatus(scanner.nextLine());
+		System.out.println(status.x);
 	}
 }
