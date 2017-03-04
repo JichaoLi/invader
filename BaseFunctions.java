@@ -39,7 +39,6 @@ public class BaseFunctions {
 		s.mines = new ArrayList<>();
 		int ms = scanner.nextInt();
 		for (int i = 0; i < ms; i++) {
-			scanner.next("--");
 			s.mines.add(new Point(scanner.nextDouble(), scanner.nextDouble()));
 			System.out.println(s.mines.size());
 		}
